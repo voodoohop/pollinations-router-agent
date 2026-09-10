@@ -10,16 +10,16 @@ type ResponsesRequest = Record<string, unknown> & {
 
 const ROUTER_MODEL = "openai/gpt-5-nano";
 const MODELS = {
-	FAST: "openai/gpt-5-nano",
-	BALANCED: "openai/gpt-5.4-mini",
-	DEEP: "openai/gpt-5.4",
+	FAST: "inception/mercury-2.5-preview",
+	BALANCED: "google/gemini-3.8-flash",
+	DEEP: "x-ai/grok-4.3",
 } as const;
 
 const ROUTER_INSTRUCTIONS = `Choose the cheapest model that can handle the request well.
 Reply with exactly one label and nothing else:
-FAST — greetings, simple questions, extraction, rewriting, or short summaries.
-BALANCED — normal coding, analysis, planning, or multi-step work.
-DEEP — difficult reasoning, architecture, research synthesis, or unusually complex work.`;
+FAST — simple text-only questions, extraction, rewriting, or short summaries.
+BALANCED — normal coding, analysis, planning, or any request with images, audio, or video.
+DEEP — difficult text or image reasoning, architecture, research synthesis, or unusually complex work.`;
 
 function outputText(response: unknown): string {
 	if (!response || typeof response !== "object") return "";
