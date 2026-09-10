@@ -8,7 +8,7 @@ type ResponsesRequest = Record<string, unknown> & {
 	instructions?: string | null;
 };
 
-const ROUTER_MODEL = "openai/gpt-5-nano";
+const ROUTER_MODEL = "openai/gpt-5.4-nano";
 const MODELS = {
 	FAST: "inception/mercury-2.5-preview",
 	BALANCED: "google/gemini-3.8-flash",
@@ -57,7 +57,6 @@ async function selectModel(
 				: ROUTER_INSTRUCTIONS,
 			input: request.input,
 			max_output_tokens: 16,
-			reasoning: { effort: "minimal" },
 			store: false,
 		}),
 	});
