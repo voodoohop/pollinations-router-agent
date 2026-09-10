@@ -1,0 +1,12 @@
+name: Sync staging agent
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy latest agent.ts
+        run: curl --fail --silent --show-error --request POST https://staging.gen.pollinations.ai/account/agents/bda4b608-29aa-47b5-ade5-2b254dac0b2c/sync
