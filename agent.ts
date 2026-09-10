@@ -57,16 +57,20 @@ async function selectModel(
 				: ROUTER_INSTRUCTIONS,
 			input: request.input,
 			max_output_tokens: 16,
-			reasoning: { effort: "none" },
+			reasoning: { effort: "minimal" },
 			store: false,
 		}),
 	});
-	if (!response.ok) return MODELS.BALANCED;
+	if (!response.ok) {
+		throw new Error(`Router model request failed (${response.status})`);
+	}
 
 	const label = outputText(await response.json())
 		.trim()
 		.toUpperCase() as keyof typeof MODELS;
-	return MODELS[label] ?? MODELS.BALANCED;
+	const model = MODELS[label];
+	if (!model) throw new Error("Router model returned an invalid label");
+	return model;
 }
 
 export default async function agent({
